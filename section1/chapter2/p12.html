@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <div id="app">
+    <span v-html='link'></span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                link: '<a href=“#”>这是一个链接</a>'//注意这里要使用双引号，不然可能会出现解析配对上的错误
+            }
+        })
+    </script>  
+</body>
+</html>

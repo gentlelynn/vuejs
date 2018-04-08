@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第5章内置指令</title>
+</head>
+<body>
+    <div id="app">
+        <!-- v-show改变元素的display属性，这个才是真的会被隐藏哦，区分它和v-cloak的区别哦～另外它不能用在template上 -->
+        <!-- v-if是条件渲染，开销大，适用于条件不经常变换的场景，而v-show是必渲染，适用于需要频繁切换条件的情况 -->
+        <p v-show="status===1">v-show用法，当status为1时显示该行</p>
+        <!-- 单个元素可以直接使用条件指令，就像其他语言一样，只不过多了v字 -->
+        <p v-if="status===1">当status为1时显示该行</p>
+        <p v-else-if="status===2">当status为2时显示该行</p>
+        <p v-else="status===3">否则显示该行</p>
+        <!-- 多个元素的话可以直接使用template -->
+        <template v-if="status===2">
+            <p>这是一段文本</p>
+            <p>这是一段文本</p>
+            <p>这是一段文本</p>            
+        </template>
+        <template v-if="type ==='name'">
+            <label for="name">用户名</label>
+            <input type="text" placeholder="请输入你的名字" key='name-input'>
+        </template>
+        <template v-else>
+            <label for="email">邮箱</label>
+            <input type="text" placeholder="请输入你的邮箱" key='email-input'>
+        </template>
+        <button @click="handleToggleClick">切换输入类型</button>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+              status: 2,
+              type: 'name'
+            },
+            methods:{
+                handleToggleClick: function(){
+                    //上面的分支走向注定了不是name就会走到其他分支，所以不管我们另一个type写成什么名字都是可以的
+                    //这种只能切换一次，切不回来了，并且这里要是等号，而不是双等号或者三等号
+                    this.type ='haha'
+                    //运算符优先级，?和:同级，=的优先级最低
+                    //这个可以无数次切换
+                    this.type = this.type === 'name'? 'mail':'name' 
+                    //另外，如果我们此时在input输入框已经输入内容之后，切换输入类型时发现文字并没有变化，因为input元素被复用了
+                    //如果不想被复用，可以在input标签中添加key关键字,key值唯一   
+                }
+            }
+        })
+    </script> 
+</body>
+</html>

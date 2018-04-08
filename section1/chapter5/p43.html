@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第5章内置指令</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 其实重要的是这里可以直接使用我们处理过后的数据，我们可以不用定义管道，也不用将vue赋值给一个变量 -->
+        <template v-for="book in filterBooks">
+            <li>书名：{{book.name }}</li>
+            <li>作者：{{book.author}}</li> 
+        </template>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                books:[
+                    {name:'《vuejs实战》', author:'梁灏'},
+                    {name:'《JavaScript高级语言程序设计》', author:'nicholas'},
+                    {name:'《JavaScript语言精粹》', author:'douglas'}
+                ]
+            },
+            //其实做到现在很重要的就是如何取到正确的数据，比如下面的方法中，如果要取到vue实例中的数据，要使用this.books
+            computed:{
+                filterBooks:function(){
+                    return this.books.filter(function(book){
+                        return book.name.match(/JavaScript/)
+                    })
+                },
+                //sort方法，如果返回值<=0,那么相对位置不变，否则，相对位置改变
+                sortedBooks: function(){//书名长度由长到短
+                    return this.books.sort(function(a,b){
+                        return a.name.length< b.name.length
+                    })
+                }
+            }
+        })    
+    </script> 
+</body>
+</html>

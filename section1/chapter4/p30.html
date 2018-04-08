@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第4章v-bind及class与style绑定</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 书上说css属性名称可以使用驼峰或者短线格式，是说我们写在前面的引号中的内容，后面的变量名称还是要写成驼峰格式-->
+        <div :style="{'font-size':fontSize+'px', 'color': color}">hello world</div>
+        <div :style="styles">您好</div>
+        <div :style="styleCom">vuejs</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               //这里面设置一些具体的样式值
+               color: 'red',
+               fontSize: 18,
+               //内联样式可以写在data或者computed选项内
+               styles:{
+                   color: 'green',
+                   fontSize: 20 + 'px'//注意这里要写成驼峰式
+               }
+            },
+            //仿照之前的class绑定方式写的style的绑定方式,可以利用data中的数据，也可以自己重新定义样式
+            computed:{
+                styleCom: function(){
+                    return {
+                        fontSize :this.fontSize,
+                        color: 'blue'
+                    }
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

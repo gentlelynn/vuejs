@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第5章内置指令</title>
+</head>
+<body>
+    <div id="app" v-cloak>
+        {{message}}
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               message:'这是一段文本'
+            }
+        })
+    </script> 
+    <!-- v-clobk用来解决初始化慢导致页面闪烁的问题 -->
+    <!-- v-clobk需要与css的样式配合使用  -->
+    <!-- 注意它的意思并不是说加了这个属性之后就可以直接隐藏某个元素，
+    而是说当网速较慢、vue文件还没有加载完成时自动隐藏那些编译、创建完成的dom元素
+    在这个例子中我们的页面过于简单，不存在所谓的未编译好的元素 -->
+    <style>
+        /* 属性选择器 */
+        [v-cloak]{
+            display: none
+        }
+    </style>
+</body>
+</html>

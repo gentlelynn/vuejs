@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="show">这是一段文本</p>
+        <button v-on:click='show = false'>点击隐藏</button><!-- 内联语句形式 -->
+        <button v-on:click='handleclose'>点击显示</button><!-- 函数形式 -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true
+            },
+            methods:{
+                handleclose:function(){
+                    //this.show = true//函数内this指向vue实例，因此可以直接采用this方法修改其值
+                    this.close()//对于更加复杂的逻辑可以采用函数嵌套的方式对方法进行调用
+                },
+                close: function(){
+                    this.show = true
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

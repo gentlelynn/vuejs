@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <!-- 大括号可以使用js表达式进行简单的运算、三元运算等，但不支持语句和流控制 -->
+    <div id="app">
+    <!-- 这里‘/’表示除法，%才是取余 -->
+    {{number /10}}
+    <!-- 记住这里的确定还是取消都是值，要用引号引起来 -->
+    {{isOK? '确定' : '取消'}}
+    {{text.split(',').reverse().join(',')}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                number: 15,
+                isOK: true,
+                text: '123,456'
+            }
+        })
+    </script>  
+</body>
+</html>

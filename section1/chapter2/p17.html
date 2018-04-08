@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <div id="app">
+        <p v-if="show">这是一段文本</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        var app =new Vue({
+            el: '#app',
+            data: {
+                show: true
+            },
+            methods:{
+                init: function(text){
+                    console.log(text)
+                }
+            },
+            mounted:function(){
+                this.init('在初始化时调用')
+            }
+            
+        })
+        //注意此时我们要将vue实例赋值给一个变量，否则，是无法在外部调用init方法的
+        //这个也类似我们在console中修改data的值是一样的意思
+        //vue实例本来就是对象，因此我们可以采用字面量的形式采用.方法调用对象内部的方法
+        app.init('在外部调用')
+    </script>  
+</body>
+</html>

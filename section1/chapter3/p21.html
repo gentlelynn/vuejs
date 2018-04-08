@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第3章计算属性</title>
+</head>
+<body>
+    <div id="app">
+        姓名:{{fullName}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               firstName: 'jack',
+               lastName: 'green' 
+            },
+            computed:{
+                fullName:{
+                    //用于读取数据
+                    get: function(){
+                        return this.firstName + ' '+ this.lastName
+                    },
+                    //用于在写入数据时触发并对页面进行更新
+                    //不过很奇怪的是在对数据进行修改时候视图并没有更新
+                    set: function(newValue){
+                        var names = newValue.split(' ')//字符串分割成字符串数组
+                        this.firstName = names[0]//取名字的第一个值为firstName
+                        this.lastName = names[names.length-1]//名字可能会很长，其他中间部分是middlenName，正式场合要求全名时才使用，lastName取名字的最后一位即可
+                    }
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

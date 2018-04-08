@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第5章内置指令</title>
+</head>
+<body>
+    <div id="app">
+        点击次数:{{counter}}
+        <button @click="addN()">+1</button>
+        <button @click="addN(10)">+10</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                counter:0
+            },
+            methods:{
+                addN:function (count) {
+                    //也可以将它赋值给一个变量，类似这样var n  = count|1
+                    //另外|后面才是它的默认值啊
+                    count = count| 1
+                    //this只想当前vue实例app
+                    //这个问题已经很多次了，记得记得要对data中的数据做操作的话，一定要指向正确的变量，一般是通过this，另外有的时候为了确保，可能会手动把this赋值给某个值
+                    this.counter+=n
+                }
+            }
+        })    
+    </script> 
+</body>
+</html>

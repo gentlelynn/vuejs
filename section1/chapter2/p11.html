@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <div id="app">
+        {{date}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                date: new Date()
+            },
+            mounted:function(){
+                //声明一个指向vue实例的变量保证作用域一致
+                //神奇的是当我去掉这一句的话的时候，时间不再更新
+                var self = this 
+                //setInterval和setTimeout的区别，setInterval以指定时间为周期循环执行
+                this.timer = setInterval(function(){
+                    self.date = new Date()
+                },1000)
+            },
+            beforeDestroy:function(){
+                if (this.timer) {
+                    clearInterval(this.timer)//vue实例销毁之前，清除我们的定时器
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

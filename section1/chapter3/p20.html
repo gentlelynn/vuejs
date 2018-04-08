@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第3章计算属性</title>
+</head>
+<body>
+    <div id="app">
+        {{price}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                package1: [
+                    {
+                        name: 'iphone7',
+                        price: '5000',
+                        count: 2
+                    },
+                    {
+                        name: 'ipad',
+                        price: '2888',
+                        count: 3
+                    },
+                    {
+                        name: 'mac',
+                        price: '12888',
+                        count: 3
+                    }
+                ],
+                package2: [
+                    {
+                        name: 'apple',
+                        price: 5,
+                        count: 5
+                    },
+                    {
+                        name: 'banana',
+                        price: '2',
+                        count: 10
+                    }
+                ]
+            },
+            computed:{
+                price: function(){
+                    var price = 0
+                    //注意这个地方一定要加this，否则此处我们是不能引用到data中定义的内容的,虽然他们都包含在vue实例中
+                    //此时的this.package就相当于vue.package
+                    //pachage是数组，所以可以通过遍历的方法将依次计算价格
+                    //另外此时两个i值并不会产生冲突
+                    for(var i = 0;i<this.package1.length;i++){
+                        price += this.package1[i].price * this.package1[i].count
+                    }
+                    for(var i = 0;i<this.package2.length;i++){
+                        price += this.package2[i].price * this.package2[i].count
+                    }
+                    return price
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

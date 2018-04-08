@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第2章数据绑定和第一个vue应用</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="name" placeholder="你的名字">
+        <h1>你好，{{name}}</h1>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                name:''
+                //v-model，h1和data都是一样的名字，是因为他们的数据相同
+                //这里一开始是空值，是因为初始状态input并没有值，后面随着输入值的改变这三者同时改变。
+                //不过为什么这个时候我们修改app.name的值，h1这里并没有发生改变呢
+            }
+        })
+    </script>  
+</body>
+</html>

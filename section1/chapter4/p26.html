@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第4章v-bind及class与style绑定</title>
+</head>
+<body>
+    <!-- class的绑定可以写成数组，也可以写成对象形式 -->
+    <div id="app">
+        <!-- 动态切换class -->
+        <div :class="{'active':isActive}"></div>
+        <!-- 与普通class共存 -->
+        <div class="static" :class="{'active':isActive, 'error':isError}"></div>
+        <!-- 绑定计算属性 -->
+        <div :class="classes"></div>
+        <!-- 数组形式 -->
+        <div :class="[activeCls, errorCls]"></div>
+        <!-- 三元表达式形式 -->
+        <div :class="[isActive? activeCls:'', errorCls]"></div>
+        <!-- 数组中使用对象语法 -->
+        <div :class="[{'active':isActive}, errorCls]"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               //这里面设置一些boolean值或者类的附加值
+            },
+            computed:{
+                classes: function(){
+                    //当return特别长而且包含好几个语句的时候我们可以给他写到对象里面
+                    //这里是说classes取值有两个,active和text-fail
+                    //配合上面data中的数据，我们可能取到不同的值
+                    return {
+                        //!null ===true
+                        active: this.isActive&& !this.error,
+                        'text-fail': this.error && this.error.type ==='fail'
+                    }
+                    //或者写到数组里面
+                    //下面的意思就是说classes中btn为必有属性，如果size不为空那么就可以取得btn的size类，如果disabled为true就可以取得btn-disabled类
+                    return [
+                        'btn',{
+                            ['btn'+ this.size]: this.size!=='',
+                            ['btn-disabled']:this.disabled
+                        }
+                    ]
+                }
+            }
+        })
+    </script>  
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第5章内置指令</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <!-- v-for 指令需要使用 item in items 形式的特殊语法，items 是源数据数组并且 item 是数组元素迭代的别名 -->
+            <li v-for="book in books">{{book.name}}</li>
+            <!-- 可以使用of代替in -->
+            <li v-for="book of books">{{book.name}}</li>
+            <!-- v-for支持使用索引的方式对数组进行遍历 -->
+            <li v-for="(book, index) of books">{{index}}--{{book.name}}</li>
+            <!-- 但是注意，下面这种形式就不能正确的输出我们所期待的样子 -->
+            <!-- 官网文档说明:v-for 还支持一个可选的第二个参数为当前项的索引,也就是说索引需要座位第二个参数 -->
+            <li v-for="(index, book) of books">{{index}}--{{book.name}}</li>
+            <!-- index的默认定义大概是类似数组下标的意思，所以此时输出了books数组中的每一个对象的内容 -->
+            <li v-for="index of books">{{index}}</li>
+        </ul>
+
+        <!-- v-for用在内置标签template上，用于多个元素的渲染->想想之前的v-if -->
+        <template v-for="book in books">
+            <li>书名：{{book.name}}</li>
+            <li>作者：{{book.author}}</li>            
+        </template>
+
+        <!-- v-for不光可以用于数组，还可以用于对象的遍历 -->
+        <span v-for="value in users">{{value}} </span>
+        
+        <!-- 与数组一样，有两个可选参数，键名(key)和索引(index),依然要注意他们在v-for中的顺序 -->
+        <p v-for="(value, key, index) in users">{{index}}--{{key}}:{{value}}</p> 
+        
+        <!-- 用于整数的遍历，现在是不是清楚了呢，v-for就是我们平常使用的for循环啊 -->
+        <span v-for="n in 10">{{n}} </span>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                books:[
+                    {name:'《vuejs实战》', author:'梁灏'},
+                    {name:'《JavaScript高级语言程序设计》', author:'nicholas'},
+                    {name:'《JavaScript语言精粹》', author:'douglas'}
+                ],
+                users:{
+                    name: '小明',
+                    age: 20,
+                    gendar: '男'
+                }
+            }
+        })
+    </script> 
+</body>
+</html>
