@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <!-- 访问slot -->
+    <div id="app">
+        <my-component>
+            <h2 slot="header">标题</h2>
+            <p>正文内容</p>
+            <p>更多的正文内容</p>
+            <div slot="footer">底部信息</div>
+        </my-component>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            template: '\
+                <div class="container">\
+                    <div class="header">\
+                        <slot name="header"></slot>\
+                    </div>\
+                    <div class="main">\
+                        <slot></slot>\
+                    </div>\
+                    <div class="footer">\
+                        <slot name="footer"></slot>\
+                    </div>\
+                </div>',
+            mounted: function(){
+                //this.$slot.default包含了所有没有被包含在具名slot中的节点
+                //this.$slot可以访问某个具名slot
+                var header = this.$slots.header
+                var main = this.$slots.default
+                var footer = this.$slots.footer
+               console.log(footer)
+               console.log(main)// 打印了5个
+               //通过查看在console中的打印信息，我们可以发现footer是一个节点数组，而第一个元素即footer[0]包含了这个Vnode节点的信息
+               //有很多对象值，elm也是其中一个，它的innerHTML值为底部信息
+               console.log(footer[0].elm.innerHTML) //底部信息
+            }
+        })
+
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+</html>

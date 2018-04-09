@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <!-- 单个slot用法 -->
+    <div id="app">
+        <child-component>
+            <p>分发的内容</p>
+            <p>更多的分发内容</p>
+        </child-component>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        // 单个slot就相当于一个替补队员，如果前面没人上了，那只能他上了
+        Vue.component('child-component',{
+            template: '\
+                <div>\
+                    <slot>\
+                        <p>如果父组件没有插入内容，slot标签内的内容将作为默认内容出现</p>\
+                    </slot>\
+                    <p>slot外面的内容会正常显示，但是父组件没有数据时，它还是会显示</p>\
+                </div>'
+        })
+        new Vue({
+            el: '#app',
+            data:{
+                message: '',
+            }
+        })
+    </script>
+</body>
+</html>

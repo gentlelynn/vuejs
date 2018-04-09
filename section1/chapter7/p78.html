@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <div id="app">
+        <p>{{total}}</p>
+        <!-- <my-component @increase ="handleGetTotal" @reduce="handleGetTotal"></my-component>  -->
+        <my-component v-model="total"></my-component>
+        <button @click="handleReduce"></button>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            props: ['value'],
+            template: '\
+            <div>\
+                <input type="text" :value="value" @input="updateInput">\
+            </div>',
+            methods:{
+                updateInput:function(e){
+                    this.$emit('input', e.target.value)
+                    //给组件添加v-model属性时，默认会把value作为事件的属性，然后把input值作为给事件绑定的事件名
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data:{
+                total: 10
+            },
+            methods:{
+                handleReduce:function(){
+                    this.total--
+                }
+            }
+        })
+    </script>
+</body>
+</html>

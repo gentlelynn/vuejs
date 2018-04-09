@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <div id="app">
+        <input type="checkbox" v-model="checked" id="checked">
+        <label for="checked">{{checked}}</label><br>
+        <!-- v-model与value绑定到一个数组类型的数据 -->
+        <!-- 所以此时我们在input中是要定义value值的，并且这个值显示到v-model中 -->
+        <input type="checkbox" v-model="checkedbox" value="html">
+        <label for="checked">html</label><br>
+        <input type="checkbox" v-model="checkedbox" value="css">
+        <label for="checked">css</label><br>
+        <input type="checkbox" v-model="checkedbox" value="js">        
+        <label for="checked">js</label><br>
+        <!-- 嘻嘻，在这里添加了一个判断，如果没有选中任何值，那么此时不再显示一个空数组，而是直接告诉我们 -->
+        <p v-if="checkedbox.length !=0">选中的值为:{{checkedbox}}</p>
+        <p v-else>未选中任何值</p>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                checked: false,
+                checkedbox: ['html', 'css']
+            }
+        })
+    </script>
+</body>
+</html>

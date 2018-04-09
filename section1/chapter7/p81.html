@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <!-- 非父子组件通信 -->
+    <div id="app">
+        <button @click="handleRef">通过ref获取子组件内容</button>
+        <button @click="showmsg">通过children获取子组件内容</button>
+        <my-component ref="comA"></my-component>{{message}}
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        var bus = new Vue()
+        Vue.component('my-component',{
+            template: '<button @click="handleEvent">通过父链直接修改数据</button>',
+            data: function(){
+                return {
+                    msg: '这是子组件的内容'
+                }
+            },
+            methods:{
+                handleEvent: function(){
+                    //直接使用this.$parent可以直接访问该组件的父组件或者实例
+                    //访问到父链后，可以做任何操作，比如直接修改数据
+                    this.$parent.message= '来自组件的内容'
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data:{
+                message: '',
+            },
+            methods:{
+                handleRef:function(){
+                    //ref被用来给元素或者组件上注册信息，引用信息将被注册在父组件内的$refs对象上
+                    //如果在普通dom元素上使用，引用指向dom元素
+                    //如果在子组件上，引用就指向组件实例
+                    //$refs是一个对象哦，其他子组件也会被注册到这个上面哦，所以我们要通过.方法来或者对象中指定键的值
+                    var mg = this.$refs.comA.msg
+                    alert(mg)
+                },
+                showmsg: function(){
+                    //可以使用this.$children访问该组件的所有子组件
+                    //不过要⚠️它返回的数据类型的格式是数组
+                    alert(this.$children[0].msg)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

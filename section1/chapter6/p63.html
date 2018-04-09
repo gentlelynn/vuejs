@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <!-- 与事件中的修饰符类似，用于控制事件同步的时机 -->
+    <div id="app">
+        <!-- .lazy修饰符会转变为在change事件中同步，下面的例子中message并不是实时更新，而是失焦或者回车时才更新 -->
+        <!-- 也许根据它的特性可以设置在回车之后触发什么事件 -->
+        <input type="text" v-model.lazy="message">
+        <p>{{message}}</p>
+
+        <input type="text" v-model.number="info">
+        <!-- 最开始显示的结果为string，因为我们在data中给空数据加的引号，但是后面确实类型转换为了数字 -->
+        <!-- 但是它的作用也并不是我想的那样，我随便在输入框输入一个字符串类型的数字就会变成数字 -->
+        <p>{{info}}</p>
+        <p>转换后的类型:{{typeof info}}</p>
+
+        <!-- 其实trim感觉很多地方都用过尤其是之前在写后台服务的时候取到的数据都要进行trim，否则可能和数据库里存入的值不等 -->
+        <input type="text" v-model.trim="getInfo">
+        <p>去掉空格之后的值:{{getInfo}}</p>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                message: '',
+                info:'',
+                getInfo:''
+            }
+        })
+    </script>
+</body>
+</html>

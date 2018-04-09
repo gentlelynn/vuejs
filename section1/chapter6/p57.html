@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <div id="app">
+        <input type="radio" :checked="picked"><label for="">vue</label>
+        <!-- 使用v-model是为了产生互斥的效果，也就是以下3个单选框只能选择一个哦 -->
+        <!-- 至于为什么是互斥的效果，我想是因为三个model都是这个数据，只能有一个数据取到这个值 -->
+        <input type="radio" v-model="select" id="js" value="js"><label for="js">js</label>
+        <input type="radio" v-model="select" id="html" value="html"><label for="html">html</label>
+        <input type="radio" v-model="select" id="css" value="css"><label for="css">css</label>
+        <p>选择的项是:{{select}}</p>       
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                picked: true,
+                select: 'js'//此时是给的一个默认选项值，如果不写也没关系
+            }
+        })
+    </script>
+</body>
+</html>

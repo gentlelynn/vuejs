@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <!-- v-model动态绑定一个可变的值 -->
+    <div id="app">
+        <!-- 当选中时，app.picked ===app.value===123 -->
+        <input type="radio" v-model="picked" :value="value">
+        <label>单选按钮</label>
+        <p>{{picked}}</p>
+        <p>{{value}}</p> 
+        
+        <!-- 当选中时，app.toggle===app.true-value===a,未选中时app.toggle===app.false-value===b -->
+        <!-- 不过有一个问题是书上的代码页面载入时的状态toggle的值是错误的，所以我将它的默认值改为了b-->
+        <input type="checkbox" v-model="toggle" :true-value="value1" :false-value="value2">  
+        <label>复选框</label>
+        <p>{{toggle}}</p>  
+        <p>{{value1}}</p>  
+        <p>{{value2}}</p>
+
+        <!-- 其实有一点儿不明白为什么书上的代码要把value赋值为一个对象，像其他例子那样不好么？ -->
+        <select v-model="selected">
+            <option :value="{number:123}">123</option>
+            <!-- <option :value="number">123</option>比如我们这里这样写，然后在data数据中对number再去做定义 -->
+        </select>
+        <p>{{selected.number}}</p>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                picked: false,
+                value: 123,
+                toggle: 'b',
+                value1: 'a',
+                value2: 'b',
+                selected: ''
+            }
+        })
+    </script>
+</body>
+</html>

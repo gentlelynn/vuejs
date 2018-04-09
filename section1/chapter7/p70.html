@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 静态传值的方法 -->
+        <my-component message="来自父组件的数据"></my-component>
+        <!-- 这是动态传值的方法-->
+        <my-component :message="message"></my-component>
+        <!-- 如果传递的直接是数字、布尔值、数组、对象等又不用v-bind,那么此时仅仅是直接解析字符串 -->
+        <my-component message="[1,2,3]"></my-component><!-- 7 -->
+        <my-component :message="[1,2,3]"></my-component><!-- 3 -->
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            props: ['message'],//接收父级传递的数据，字符串数组或者对象
+            template: '<div><span>{{message}}</span><span>{{message.length}}</span></div>'
+        })
+
+        new Vue({
+            el: '#app',
+            data:{
+                message:'这是来自父组件的数据'
+            }
+        })
+    </script>
+</body>
+</html>

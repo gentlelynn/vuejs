@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第7章组件详解</title>
+</head>
+<body>
+    <div id="app">
+        <my-component></my-component>
+        <child-component></child-component>
+        <mydata></mydata>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        //Component template requires a root element, rather than just text.
+        //因此记得模版中的template要有dom元素哦
+        //全局注册组件
+        Vue.component('my-component',{
+            template: '<div>这是模版的内容</div>'
+        })
+
+        //组件可以有vue实例那样的方法，但是data是一个有return的函数，大概是因为如果公用一个数据，可能在一个改变时，其他数据也会受到影响
+        //return函数的目的是防止数据之间的相互污染，保证每个部分的独立性。
+        //另外我们应该注意数据的作用域，如果它的作用域是全局的，那么依然会出现上面的问题，因此我们最好将data写在注册的组件内部
+        Vue.component('mydata',{
+            template: '<div>{{message}}</div>',
+            data: function(){
+                return{
+                    message: '这是组件通过data返回的数据哦'
+                }
+            }
+        })
+        var child = {
+            template: '<div>这里是子组件的内容</div>'
+        }
+        new Vue({
+            el: '#app',
+            //记得这里是components哦，因为你想嘛，可能有很多个组件的哦
+            //这是局部注册组件的方法，有没有注意到它和全局注册的区别，对的，因为它放在了实例里面哦
+            components: {
+                'child-component': child
+            }
+        })
+    </script>
+</body>
+</html>

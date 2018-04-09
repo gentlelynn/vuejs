@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <div id="app">
+        <select name="select" id="select" v-model="selected">
+            <option value="html">html</option>
+            <option value="css">css</option>
+            <option value="js">javascript</option>            
+        </select>
+        <!-- v-model会优先匹配value的值哦，如果没有则会匹配option标签的值，比如我们选中js时，显示的内容是js，而不是javascript哦 -->
+        <p>选中的值为:{{selected}}</p>
+
+        <!-- 和多选框一样，下拉列表的多选也是与value值相配合生成的数组哦 -->
+        <select name="select" id="select" v-model="picked" multiple>
+            <option value="html">html</option>
+            <option value="css">css</option>
+            <option value="js">javascript</option>            
+        </select>
+        <!-- 多选的话要按住ctrl或者command键哦 -->
+        <p>选中的值为:{{picked}}</p>
+
+        <!-- 和列表是一样的，可以使用v-for循环，item in items形式 -->
+        <select name="select" v-model="pickbox">
+            <option v-for="option in options" :value="option.value">{{option.text}}</option>
+        </select>
+        <p>选中的值为:{{pickbox}}</p>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                selected: 'html',//默认值可有可无，只是在某些情况下可以提高用户体验
+                picked: ['html', 'css'],
+                pickbox: 'html',
+                options:[
+                    {text: 'html',value:'html'},
+                    {text: 'css', value:'css'},
+                    {text: 'js', value:'js'},                                 
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

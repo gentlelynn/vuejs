@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第6章表单与v-model</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用v-model后，表单控件显示的值只依赖所绑定的数据，初始化value与标签间的值不再生效 -->
+        <input type="text" placeholder="输入..." v-model="message">
+        <p>您输入的内容为:{{message}}</p>
+        <textarea name="input" cols="30" rows="10" v-model="text"></textarea>
+        <!-- white-space: pre会保留我们输入的格式，如果不使用的话就是直接一个接一个向后排 -->
+        <p>您在文本域中输入的内容为:{{text}}</p>
+        <p style="white-space: pre">{{text}}</p> 
+        <!-- @input方法可实现中文输入法的实时更新 -->
+        <input type="text" placeholder="输入..." @input="handleInput">
+        <p>{{inputbox}}</p>
+    </div>
+    <!-- 引入vue文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data:{
+                message: '',
+                text: '',
+                inputbox: ''
+            },
+            methods:{
+                handleInput:function(e){
+                    this.inputbox = e.target.value//e.targer指触发此事件的元素也就是input
+                }
+            }
+        })
+    </script>
+</body>
+</html>
